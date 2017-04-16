@@ -30,8 +30,9 @@ int main(int argc, char** argv) {
 
     TLV_INT(ta, 9);
     TLV_INT(tb, 9);
-    TLV_INT(tc,"addkdkdkdkdkd");
+    TLV_CSTR(tc, "addkdkdkdkdkd");
     printf(tc.value);
+//    TLV_ARRAY(td, ta, tb, tc);
 
 
     return (EXIT_SUCCESS);
