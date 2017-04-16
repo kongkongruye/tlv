@@ -19,10 +19,7 @@
 /*
  * 
  */
-#define max(a,b) \
-  ({ typeof (a) _a = (a); \
-      typeof (b) _b = (b); \
-    _a > _b ? _a : _b; })
+
 
 int main(int argc, char** argv) {
     uint16_t buf[6] = {1, 2, 0, 1, 2, 2};
@@ -38,10 +35,12 @@ int main(int argc, char** argv) {
     TLV_INT(ta, 9);
     TLV_INT(tb, 9);
     TLV_CSTR(tc, "addkdkdkdkdkd");
-    TLV_ARRAY(td,ta,tb,tc);
-    printf(tc.value);
-//    TLV_ARRAY(td, ta, tb, tc);
-    max(1,3);
+    
+    MB_DEF(mb1,buf,sizeof(buf));
+    MB_OFF(mb1,2);
+    MB_GET_INNER_MB(mb2,mb1);
+    
+    
     return EXIT_SUCCESS;
 }
 

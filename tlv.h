@@ -51,12 +51,27 @@ typedef struct tlv_p_t {
 
 typedef struct memory_block_t {
     uint8_t* paddr;
+    uint32_t off;
     uint32_t size;
 } MemoryBlock;
 
-typedef struct memory_block_iter_t {
-    memory_block_t mb;
-    uint32_t off;
-}MemoryIter;
+#define MB_DEF(nm,buf,s) MemoryBlock nm = {\
+.paddr = (uint8_t*)buf,\
+.off = 0,\
+.size = s\
+}
 
+#define MB_OFF(mb,s) (mb.off += s,assert(mb.off <= mb.size))
+#define MB_GET_INNER_MB(n_mb,o_mb)  MB_DEF(n_mb,o_mb.paddr,o_mb.off)
+//类型转换
+#define MB_CAST(mb,t) (t)(mb.paddr+mb.off)
+//剩余多少
+#define MB_REMAIN(mb) (mb.size - mb.off)
+//写入POD数据
+#define MB_WRITE_POD(mb,v) do{assert(MB_REMAIN(mb)>=sizeof(v));\
+memcpy(mb.paddr+ mb.off,&v,sizeof(v));\
+mb.off += sizeof(v);\
+}while(0)
+//写入指针
+#define MB_WRITE_PT(mb,pt) WRITE_POD(mb,*pt)
 
