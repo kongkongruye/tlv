@@ -47,5 +47,6 @@ typedef struct tlv_p_t {
  {.h={.type=TLV_T_INT,.len=sizeof(short)},\
  .value=v}
 
-//#define TLV_ARRAY() struct {}
+#define TLV_SIZEOF(v) (sizeof(TLV_C)+v.len)
 
+//#define TLV_ARRAY() struct {}
