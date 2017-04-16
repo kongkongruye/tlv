@@ -13,11 +13,26 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "tlv.h"
 
 /*
  * 
  */
 int main(int argc, char** argv) {
+    uint16_t buf[6] = {1, 2, 0, 1, 2, 2};
+
+    TLV_SCAN(ptlv, buf, sizeof (buf)) {
+
+        printf("tlv %d\n", TLV_CAST(ptlv, short));
+
+        //        printf("tlv %d\n",TLV_CAST(ptlv,int));    
+    }
+
+    TLV_INT(ta, 9);
+    TLV_INT(tb, 9);
+    TLV_INT(tc,"addkdkdkdkdkd");
+    printf(tc.value);
+
 
     return (EXIT_SUCCESS);
 }
