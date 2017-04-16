@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS =  -O2 -std=c99
+CFLAGS =  -O2 -std=gnu90
 LDFLAGS = 
 OBJS = main.o
 TARGET = tlv

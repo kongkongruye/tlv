@@ -14,13 +14,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tlv.h"
+#include <sys/queue.h>
 
 /*
  * 
  */
+#define max(a,b) \
+  ({ typeof (a) _a = (a); \
+      typeof (b) _b = (b); \
+    _a > _b ? _a : _b; })
+
 int main(int argc, char** argv) {
     uint16_t buf[6] = {1, 2, 0, 1, 2, 2};
-
+    
+    TLV_C* ptlv;
     TLV_SCAN(ptlv, buf, sizeof (buf)) {
 
         printf("tlv %d\n", TLV_CAST(ptlv, short));
@@ -31,10 +38,10 @@ int main(int argc, char** argv) {
     TLV_INT(ta, 9);
     TLV_INT(tb, 9);
     TLV_CSTR(tc, "addkdkdkdkdkd");
+    TLV_ARRAY(td,ta,tb,tc);
     printf(tc.value);
 //    TLV_ARRAY(td, ta, tb, tc);
-
-
-    return (EXIT_SUCCESS);
+    max(1,3);
+    return EXIT_SUCCESS;
 }
 

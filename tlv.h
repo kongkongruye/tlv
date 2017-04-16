@@ -20,7 +20,7 @@ typedef struct tlv_p_t {
 
 #define TLV_NEXT(p_tlv_c) (p_tlv_c = (TLV_C*)(p_tlv_c->value + p_tlv_c->len))
 
-#define TLV_SCAN(p_tlv_c,buf,size) for(TLV_C* p_tlv_c=(TLV_C*)buf;\
+#define TLV_SCAN(p_tlv_c,buf,size) for(p_tlv_c=(TLV_C*)buf;\
                                                             p_tlv_c->value+p_tlv_c->len <= ((uint8_t*)buf)+size;\
                                                             TLV_NEXT(p_tlv_c))
 
@@ -49,4 +49,14 @@ typedef struct tlv_p_t {
 
 #define TLV_SIZEOF(v) (sizeof(TLV_C)+v.len)
 
-//#define TLV_ARRAY() struct {}
+typedef struct memory_block_t {
+    uint8_t* paddr;
+    uint32_t size;
+} MemoryBlock;
+
+typedef struct memory_block_iter_t {
+    memory_block_t mb;
+    uint32_t off;
+}MemoryIter;
+
+
